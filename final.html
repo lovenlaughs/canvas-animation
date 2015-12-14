@@ -1,0 +1,581 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+	#button {
+		position: relative;
+		bottom: -250px;
+		right: -160px;
+	}
+	#button2{
+		position: relative;
+		bottom: -220px;
+		right: -370px;
+	}
+	#button3 {
+		position: relative;
+		bottom: -180px;
+		right: -600px;
+	}
+	#smile {
+		position: relative;
+		top: -2000px;
+		z-index: -1;
+	}
+	#stretch {
+		position: relative;
+		top: -2500px;
+		right: -500px;
+		z-index: -1;
+	}
+	#bubbles {
+		position: relative;
+		top: -3400px;
+		right: -1000px;
+		z-index: -1;
+	}
+	#crown {
+		position: relative;
+		bottom: 2850px;
+		right: -1450px;
+	}
+	#Redhat {
+		position: relative;
+		bottom: -60px;
+	}
+	#Greenhat {
+		position: relative;
+		bottom: -20px;
+		right: -270px;
+	}
+	#YellowHat {
+		position: relative;
+		top: -10px;
+		right: -500px;
+	}
+	
+    </style>
+  </head>
+  <body bgColor = "#e5e5ff">
+  <canvas id = 'canvas' width = 1900 height = 900></canvas>
+   <canvas id = 'canvas2' width = 500 height = 500></canvas>
+   
+<div id = "button"><button onclick="myMario()">Submit</button></div>
+<p id="Mario"></p>
+
+<div id = "button2"><button onclick="myLuigi()">Submit</button></div>
+<p id = "Luigi"></p>
+
+<div id = "button3"><button onclick="myWario()">Submit</button></div>
+<p id = "Wario"></p>
+
+<p id = "Redhat">Type in Mario</p>
+<p id = "Greenhat">Type in Luigi</p>
+<p id = "YellowHat">Type in Wario</p>
+
+<form method="get">
+Name: 
+<input type="text" name="first_name" value="" maxlength="100"/>
+
+Name: 
+<input type="text" name="second_name" value="" maxlength="100"/>
+
+Name: 
+<input type="text" name="third_name" value="" maxlength="100"/>
+</form>
+
+<div id = "smile"><img src = "http://img3.wikia.nocookie.net/__cb20120107141833/nintendo/en/images/7/77/Princess_Peach_NSMBW.png" width = "300" height = "500"></div>
+<div id = "stretch"><img src = "http://www.mariowiki.com/images/thumb/e/e5/Princess_Peach_Artwork_-_Mario_%26_Sonic_at_the_Olympic_Games.png/100px-Princess_Peach_Artwork_-_Mario_%26_Sonic_at_the_Olympic_Games.png" width = "200" height = "500"></div>
+<div id = "crown"><img src = "http://orig07.deviantart.net/547e/f/2015/158/7/8/princess_peach_crown_asset_by_thechan_bella-d8wd7y4.png" width = "400" height = "400"></div>
+<div id = "bubbles"><img src = "http://vignette4.wikia.nocookie.net/fantendo/images/d/d6/Princess_Peach_Bubble_Artwork_-_Mario_Party_Island_Tour.png/revision/latest?cb=20140322214851" height = "500"></div>
+	</body>
+    <script>
+	
+	function myMario() {
+    document.getElementById("Mario").innerHTML = "They fell in love and lived happily ever after :)";
+}
+   function myLuigi() {
+	document.getElementById("Luigi").innerHTML = "They went out for a few months but she got bored with him and rode off into the sunset with Mario";
+	}
+	function myWario() {
+	document.getElementById("Wario").innerHTML = "She left him after the first date";
+}
+	
+	var canvas2;
+	  var context;
+	  var shapes = []
+	  var timer;
+	  var timerTwo;
+	  var possibleShapes = ['star2','square', 'heart2'];
+	  function Shape(x, y, color) {
+		this.x = x;
+		this.y = y;
+		this.size = Math.random()*20+5;
+		this.dx = Math.random()*4-2;
+		this.dy = Math.random()*4-2;
+		this.color = color;
+		this.shape = possibleShapes[Math.floor(Math.random()*possibleShapes.length)];
+	  }
+      function init() {
+        canvas = document.getElementById('canvas2');
+        context = canvas.getContext("2d");
+ 
+        window.addEventListener('resize', resizeCanvas, false);
+        window.addEventListener('orientationchange', resizeCanvas, false);
+        resizeCanvas();
+		canvas.onclick = function(event) {
+			handleClick(event.clientX, event.clientY);
+		};
+		timer = setInterval(resizeCanvas, 20);
+		timerTwo = setInterval(newShape, 500);
+      }
+	  function newShape() {
+		var x = Math.random() * canvas.width;
+		var y = Math.random() * canvas.height;
+		var colors = ["#5cd6d6", "#d9b3ff", "#ff99cc", "#ffffcc"];
+		var color = colors[Math.floor(Math.random()*colors.length)];
+		shapes.push(new Shape(x, y, color));
+		
+	  }
+	  
+	  function drawHeart2(heart2) {
+	   context.beginPath();
+    context.moveTo(275,240);
+    context.bezierCurveTo(275,237,270,225,250,225);
+    context.bezierCurveTo(220,225,220,262.5,220,262.5);
+    context.bezierCurveTo(220,280,240,302,275,320);
+    context.bezierCurveTo(310,302,330,280,330,262.5);
+    context.bezierCurveTo(330,262.5,330,225,300,225);
+    context.bezierCurveTo(285,225,275,237,275,240);
+    context.fill();
+	}
+
+	  
+	  function drawStar2(star2) {
+		context.beginPath(); 
+    context.moveTo(star2.x, star2.y);
+    context.lineTo(star2.x+230.34, star2.y-165.73); 
+    context.lineTo(star2.x+261.45, star2.y-174.55);
+    context.lineTo(star2.x+241.67, star2.y-199.27);
+    context.lineTo(star2.x+242.56, star2.y-230.45);
+    context.lineTo(star2.x+212, star2.y-220);
+    context.lineTo(star2.x+181.44, star2.y-230.45);
+    context.lineTo(star2.x+182.33, star2.y-199.27);
+	context.lineTo(star2.x+162.55, star2.y-174.55);
+	context.lineTo(star2.x+193.66, star2.y-165.73);
+    context.fill(); 
+	  }
+
+	  function drawSquare(square) {
+		context.beginPath();
+		context.fillStyle = square.color;
+		context.fillRect(square.x, square.y, square.size, square.size);
+      }	 
+	  
+	  
+	  function drawText() {
+		context.fillStyle = 'white';
+		context.font = 'bold 2em sans-serif';
+		context.textAlign = 'right';
+		context.fillText('When she got older she began searching for a love that shone brighter than the stars in the sky', canvas.width-40, canvas.height-40);
+    }
+window.addEventListener('load',init,false);
+
+	
+      function resizeCanvas() {
+        canvas.width = window.innerWidth-20;
+        canvas.height = window.innerHeight-20;
+		fillBackgroundColor();
+		for (var i=0; i<shapes.length; i++) {
+			if (shapes[i].shape == 'star2') {
+				drawStar2(shapes[i]);
+			} else if (shapes[i].shape == 'square') {
+				drawSquare(shapes[i]);
+			} else if (shapes[i].shape == 'heart2') {
+				drawHeart2(shapes[i]);
+			}
+			if (shapes[i].x + shapes[i].dx > canvas.width || shapes[i].x + shapes[i].dx < 0)
+				shapes[i].dx = -shapes[i].dx;
+			if (shapes[i].y + shapes[i].dy > canvas.height || shapes[i].y + shapes[i].dy < 0)
+				shapes[i].dy = -shapes[i].dy;
+				shapes[i].x += shapes[i].dx;
+				shapes[i].y += shapes[i].dy;
+		}
+		drawText();		 
+      }
+	  function fillBackgroundColor() {
+		 //var colors = ["white", "yellow", "blue", "red"];
+		 //var bgColor = colors[Math.floor(Math.random() * colors.length)];
+		 context.fillStyle = 'black';
+		 context.fillRect(0, 0, canvas.width, canvas.height);
+	}
+	function degreesToRadians(degrees) {
+		//converts from degrees to radians and returns
+		return (degrees * Math.PI)/180;
+	}
+	window.onload = init;
+	
+	(function(){
+
+    function init(){
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var canvas = canvas.getContext('2d');
+
+        canvas.fillStyle = '#000000';
+        canvas.font = 'italic bold 20px arial,serif';
+
+        var text = 'This is a very short story about a mushroom heir';
+        var i=1;
+
+        function draw(){
+            canvas.fillText(text.substr(0,i),100,750);
+            i++;
+            if(i < text.length){
+                requestAnimationFrame(draw);
+				} else {
+				setTimeout(init, 10000);
+				
+            }
+        }
+
+        requestAnimationFrame(draw);
+
+    }
+    window.addEventListener('load',init,false);
+}());
+
+(function(){
+
+    function init(){
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var canvas = canvas.getContext('2d');
+
+        canvas.fillStyle = '#000000';
+        canvas.font = 'italic bold 20px arial,serif';
+
+        var text = 'Once upon a time on the night of the rare northern star a princess was born. Her parents named her Peach because she was too sweet and she was more precious than gold.';
+		var i=1;
+
+        function draw(){
+            canvas.fillText(text.substr(0,i),100,850);
+            i++;
+            if(i < text.length){
+                requestAnimationFrame(draw);
+				} else {
+				setTimeout(init, 20000);
+            }
+        }
+
+        requestAnimationFrame(draw);
+
+    }
+    window.addEventListener('load',init,false);
+}());
+
+	window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
+	  
+      function initBalls() {
+        balls = [];
+
+        var white = '#ffffff';
+		var pink = '#ff6699';
+		var gold = '#ffcc00';
+		
+		balls.push(new Ball(100, 400, 0, 0, white));
+		balls.push(new Ball(110, 390, 0, 0, white));
+		balls.push(new Ball(120, 380, 0, 0, white));
+		balls.push(new Ball(140, 380, 0, 0, white));
+		balls.push(new Ball(150, 380, 0, 0, white));
+		balls.push(new Ball(160, 390, 0, 0, white));
+		balls.push(new Ball(100, 420, 0, 0, white));
+		balls.push(new Ball(100, 440, 0, 0, white));
+		balls.push(new Ball(110, 450, 0, 0, white));
+		balls.push(new Ball(130, 460, 0, 0, white));
+		balls.push(new Ball(150, 460, 0, 0, white));
+		balls.push(new Ball(170, 450, 0, 0, white));
+		
+		balls.push(new Ball(400, 375, 0, 0, pink));
+		balls.push(new Ball(385, 390, 0, 0, pink));
+		balls.push(new Ball(365, 405, 0, 0, pink));
+		balls.push(new Ball(350, 420, 0, 0, pink));
+		balls.push(new Ball(335, 435, 0, 0, pink));
+		balls.push(new Ball(320, 450, 0, 0, pink));
+		balls.push(new Ball(415, 390, 0, 0, pink));
+		balls.push(new Ball(430, 410, 0, 0, pink));
+		balls.push(new Ball(440, 420, 0, 0, pink));
+		balls.push(new Ball(455, 440, 0, 0, pink));
+		balls.push(new Ball(465, 450, 0, 0, pink));
+		balls.push(new Ball(375, 400, 0, 0, pink));
+		
+		balls.push(new Ball(600, 375, 0, 0, gold));
+		balls.push(new Ball(600, 390, 0, 0, gold));
+		balls.push(new Ball(600, 405, 0, 0, gold));
+		balls.push(new Ball(600, 420, 0, 0, gold));
+		balls.push(new Ball(600, 435, 0, 0, gold));
+		balls.push(new Ball(600, 450, 0, 0, gold));
+		balls.push(new Ball(600, 465, 0, 0, gold));
+		balls.push(new Ball(610, 390, 0, 0, gold));
+		balls.push(new Ball(625, 405, 0, 0, gold));
+		balls.push(new Ball(640, 420, 0, 0, gold));
+		balls.push(new Ball(655, 435, 0, 0, gold));
+		balls.push(new Ball(670, 450, 0, 0, gold));
+		balls.push(new Ball(685, 465, 0, 0, gold));
+		balls.push(new Ball(685, 450, 0, 0, gold));
+		balls.push(new Ball(685, 435, 0, 0, gold));
+		balls.push(new Ball(685, 420, 0, 0, gold));
+		balls.push(new Ball(685, 405, 0, 0, gold));
+		balls.push(new Ball(685, 390, 0, 0, gold));
+		balls.push(new Ball(685, 375, 0, 0, gold));
+		
+		balls.push(new Ball(800, 375, 0, 0, pink));
+		balls.push(new Ball(815, 390, 0, 0, pink));
+		balls.push(new Ball(830, 405, 0, 0, pink));
+		balls.push(new Ball(845, 425, 0, 0, pink));
+		balls.push(new Ball(860, 440, 0, 0, pink));
+		balls.push(new Ball(875, 455, 0, 0, pink));
+		balls.push(new Ball(890, 470, 0, 0, pink));
+		balls.push(new Ball(905, 455, 0, 0, pink));
+		balls.push(new Ball(920, 440, 0, 0, pink));
+		balls.push(new Ball(935, 425, 0, 0, pink));
+		balls.push(new Ball(950, 405, 0, 0, pink));
+		balls.push(new Ball(965, 390, 0, 0, pink));
+		balls.push(new Ball(980, 375, 0, 0, pink));
+		
+		balls.push(new Ball(1150, 375, 0, 0, white));
+		balls.push(new Ball(1135, 390, 0, 0, white));
+		balls.push(new Ball(1120, 405, 0, 0, white));
+		balls.push(new Ball(1105, 425, 0, 0, white));
+		balls.push(new Ball(1090, 440, 0, 0, white));
+		balls.push(new Ball(1075, 455, 0, 0, white));
+		balls.push(new Ball(1165, 390, 0, 0, white));
+		balls.push(new Ball(1180, 405, 0, 0, white));
+		balls.push(new Ball(1195, 425, 0, 0, white));
+		balls.push(new Ball(1205, 440, 0, 0, white));
+		balls.push(new Ball(1220, 455, 0, 0, white));
+		
+		balls.push(new Ball(1400, 375, 0, 0, gold));
+		balls.push(new Ball(1375, 390, 0, 0, gold));
+		balls.push(new Ball(1360, 405, 0, 0, gold));
+		balls.push(new Ball(1345, 425, 0, 0, gold));
+		balls.push(new Ball(1340, 440, 0, 0, gold));
+		balls.push(new Ball(1345, 455, 0, 0, gold));
+		balls.push(new Ball(1360, 470, 0, 0, gold));
+		balls.push(new Ball(1375, 460, 0, 0, gold));
+		balls.push(new Ball(1390, 460, 0, 0, gold));
+		balls.push(new Ball(1405, 460, 0, 0, gold));
+		balls.push(new Ball(1420, 475, 0, 0, gold));
+		balls.push(new Ball(1435, 490, 0, 0, gold));
+		balls.push(new Ball(1420, 505, 0, 0, gold));
+		balls.push(new Ball(1405, 515, 0, 0, gold));
+		balls.push(new Ball(1390, 515, 0, 0, gold));
+		balls.push(new Ball(1375, 515, 0, 0, gold));
+		balls.push(new Ball(1360, 515, 0, 0, gold));
+		balls.push(new Ball(1345, 515, 0, 0, gold));
+		balls.push(new Ball(1330, 515, 0, 0, gold));
+		balls.push(new Ball(1315, 515, 0, 0, gold));
+		balls.push(new Ball(1300, 515, 0, 0, gold));
+		balls.push(new Ball(1285, 515, 0, 0, gold));
+		balls.push(new Ball(1270, 515, 0, 0, gold));
+		balls.push(new Ball(1255, 515, 0, 0, gold));
+		balls.push(new Ball(1240, 515, 0, 0, gold));
+		balls.push(new Ball(1225, 515, 0, 0, gold));
+		balls.push(new Ball(1210, 515, 0, 0, gold));
+		balls.push(new Ball(1195, 515, 0, 0, gold));
+		balls.push(new Ball(1180, 515, 0, 0, gold));
+		balls.push(new Ball(1165, 515, 0, 0, gold));
+		balls.push(new Ball(1150, 515, 0, 0, gold));
+		balls.push(new Ball(1135, 515, 0, 0, gold));
+		balls.push(new Ball(1120, 515, 0, 0, gold));
+		balls.push(new Ball(1105, 515, 0, 0, gold));
+		balls.push(new Ball(1090, 515, 0, 0, gold));
+		balls.push(new Ball(1075, 515, 0, 0, gold));
+		balls.push(new Ball(1060, 515, 0, 0, gold));
+		balls.push(new Ball(1045, 515, 0, 0, gold));
+		balls.push(new Ball(1030, 515, 0, 0, gold));
+		balls.push(new Ball(1015, 515, 0, 0, gold));
+		balls.push(new Ball(1000, 515, 0, 0, gold));
+		balls.push(new Ball(985, 515, 0, 0, gold));
+		balls.push(new Ball(970, 515, 0, 0, gold));
+		balls.push(new Ball(955, 515, 0, 0, gold));
+		balls.push(new Ball(940, 515, 0, 0, gold));
+		balls.push(new Ball(925, 515, 0, 0, gold));
+		balls.push(new Ball(910, 515, 0, 0, gold));
+		balls.push(new Ball(895, 515, 0, 0, gold));
+		balls.push(new Ball(880, 515, 0, 0, gold));
+		balls.push(new Ball(865, 515, 0, 0, gold));
+		balls.push(new Ball(850, 515, 0, 0, gold));
+		balls.push(new Ball(835, 515, 0, 0, gold));
+	
+
+        return balls;
+      }
+	 
+      function getMousePos(canvas, evt) {
+        var obj = canvas;
+        var top = 0;
+        var left = 0;
+        while(obj.tagName != 'BODY') {
+          top += obj.offsetTop;
+          left += obj.offsetLeft;
+          obj = obj.offsetParent;
+        }
+
+        var mouseX = evt.clientX - left + window.pageXOffset;
+        var mouseY = evt.clientY - top + window.pageYOffset;
+        return {
+          x: mouseX,
+          y: mouseY
+        };
+      }
+      function updateBalls(canvas, balls, timeDiff, mousePos) {
+        var context = canvas.getContext('2d');
+        var collisionDamper = 0.3;
+        var floorFriction = 0.0005 * timeDiff;
+        var mouseForceMultiplier = 1 * timeDiff;
+        var restoreForce = 0.002 * timeDiff;
+
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          ball.y += ball.vy;
+          ball.x += ball.vx;
+
+          if(ball.x > ball.origX) {
+            ball.vx -= restoreForce;
+          }
+          else {
+            ball.vx += restoreForce;
+          }
+          if(ball.y > ball.origY) {
+            ball.vy -= restoreForce;
+          }
+          else {
+            ball.vy += restoreForce;
+          }
+
+          var mouseX = mousePos.x;
+          var mouseY = mousePos.y;
+
+          var distX = ball.x - mouseX;
+          var distY = ball.y - mouseY;
+
+          var radius = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+
+          var totalDist = Math.abs(distX) + Math.abs(distY);
+
+          var forceX = (Math.abs(distX) / totalDist) * (1 / radius) * mouseForceMultiplier;
+          var forceY = (Math.abs(distY) / totalDist) * (1 / radius) * mouseForceMultiplier;
+
+          if(distX > 0) {
+            ball.vx += forceX;
+          }
+          else {
+            ball.vx -= forceX;
+          }
+          if(distY > 0) {
+            ball.vy += forceY;
+          }
+          else {
+            ball.vy -= forceY;
+          }
+
+          if(ball.vx > 0) {
+            ball.vx -= floorFriction;
+          }
+          else if(ball.vx < 0) {
+            ball.vx += floorFriction;
+          }
+          if(ball.vy > 0) {
+            ball.vy -= floorFriction;
+          }
+          else if(ball.vy < 0) {
+            ball.vy += floorFriction;
+          }
+
+          if(ball.y > (canvas.height - ball.radius)) {
+            ball.y = canvas.height - ball.radius - 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+
+          if(ball.y < (ball.radius)) {
+            ball.y = ball.radius + 2;
+            ball.vy *= -1;
+            ball.vy *= (1 - collisionDamper);
+          }
+
+          if(ball.x > (canvas.width - ball.radius)) {
+            ball.x = canvas.width - ball.radius - 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+
+          if(ball.x < (ball.radius)) {
+            ball.x = ball.radius + 2;
+            ball.vx *= -1;
+            ball.vx *= (1 - collisionDamper);
+          }
+        }
+      }
+      function Ball(x, y, vx, vy, color) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.color = color;
+        this.origX = x;
+        this.origY = y;
+        this.radius = 10;
+      }
+      function animate(canvas, balls, lastTime, mousePos) {
+        var context = canvas.getContext('2d');
+        var date = new Date();
+        var time = date.getTime();
+        var timeDiff = time - lastTime;
+        updateBalls(canvas, balls, timeDiff, mousePos);
+        lastTime = time;
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        for(var n = 0; n < balls.length; n++) {
+          var ball = balls[n];
+          context.beginPath();
+          context.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, false);
+          context.fillStyle = ball.color;
+          context.fill();
+        }
+
+        requestAnimFrame(function() {
+          animate(canvas, balls, lastTime, mousePos);
+        });
+      }
+      var canvas = document.getElementById('canvas');
+      var balls = initBalls();
+      var date = new Date();
+      var time = date.getTime();
+	  
+      var mousePos = {
+        x: 9999,
+        y: 9999
+      };
+
+      canvas.addEventListener('mousemove', function(evt) {
+        var pos = getMousePos(canvas, evt);
+        mousePos.x = pos.x;
+        mousePos.y = pos.y;
+      });
+
+      canvas.addEventListener('mouseout', function(evt) {
+        mousePos.x = 9999;
+        mousePos.y = 9999;
+      });
+      animate(canvas, balls, time, mousePos);  
+	  
+	  
+    </script>
+</html>
+      
